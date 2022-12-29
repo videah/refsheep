@@ -42,6 +42,8 @@ This is the most common mistake by far so please make sure you get this right! ð
 ### Missing Markings
 Videah has stripe markings on different parts of his body that many artists tend to overlook.
 
+{{ videah_ear() }}
+
 The most common one that artists miss are the **stripes on his ears**.
 Think of his ears as being little [VLC traffic cones.](https://en.wikipedia.org/wiki/VLC_media_player)
 
