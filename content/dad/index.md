@@ -27,3 +27,5 @@ Integer ac dui eu felis hendrerit fermentum.
 {% end %}
 
 {{ gallery(path="content/dad/config.toml") }}
+
+{{ nsfwgallery(path="content/dad/nsfw.toml") }}

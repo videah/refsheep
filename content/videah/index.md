@@ -48,6 +48,6 @@ Think of his ears as being little [VLC traffic cones.](https://en.wikipedia.org/
 
 {{ model() }}
 
-{{ nsfwgallery() }}
+{{ nsfwgallery(path="content/videah/nsfw.toml") }}
 
 {{ gallery(path="content/videah/config.toml") }}
