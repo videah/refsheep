@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import Blurhash from 'vite-plugin-blurhash'
+// import Blurhash from 'vite-plugin-blurhash'
 
 export default defineConfig({
     clearScreen: false,
@@ -20,11 +20,11 @@ export default defineConfig({
         port: 8001,
     },
     plugins: [
-        Blurhash.blurHash(
-            {
-                imageDir: '/content',
-                mapPath: '/src/blurhash-map.json',
-            }
-        )
+        // Blurhash.blurHash(
+        //     {
+        //         imageDir: '/content',
+        //         mapPath: '/src/blurhash-map.json',
+        //     }
+        // )
     ],
 })
