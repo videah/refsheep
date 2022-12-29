@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+<title>{% if page.extra.emoji %}{{ page.extra.emoji }} - {% endif %}{{ page.title }} References</title>
+{% endblock title %}
+
 {% block head %}
 {% set og_image = resize_image(path=page.path ~ "refsheet.png", width=1080, op="fit_width") %}
 <meta property="og:title" content="{{ page.title }} - References"/>
