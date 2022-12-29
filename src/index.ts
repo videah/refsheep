@@ -62,6 +62,22 @@ const drawOverlay = greenlet(async (image: ImageData, color: string, tolerance: 
     return image;
 })
 
+function paintOverlay(id: string, context: CanvasRenderingContext2D, refSheet: HTMLImageElement, canvasElement: HTMLCanvasElement) {
+    // Draw the image onto the canvas
+    context.drawImage(refSheet, 0, 0);
+
+    // Get the image data from the canvas
+    const imageData = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
+
+    drawOverlay(imageData, "#000", 0, false).then((imageData) => {
+        context.putImageData(imageData, 0, 0);
+        console.log("Image converted to greyscale");
+        const overlaySheet = document.getElementById(id) as HTMLImageElement;
+        overlaySheet.src = canvasElement.toDataURL()
+    });
+    return imageData;
+}
+
 function generatePalleteOverlays() {
     const palette = document.querySelector("#palette");
     if (palette) {
@@ -69,6 +85,7 @@ function generatePalleteOverlays() {
         const colors = Array.from(palette.children);
 
         const refSheet = document.getElementById("ref-sheet") as HTMLImageElement;
+        const nsfwRefSheet = document.getElementById("ref-sheet-nsfw") as HTMLImageElement;
         if (refSheet) {
 
             // Create a canvas element
@@ -76,37 +93,54 @@ function generatePalleteOverlays() {
             canvasElement.width = refSheet.naturalWidth;
             canvasElement.height = refSheet.naturalHeight;
 
+            const canvasNsfwElement = document.createElement("canvas");
+            if (nsfwRefSheet) {
+                canvasNsfwElement.width = nsfwRefSheet.naturalWidth;
+                canvasNsfwElement.height = nsfwRefSheet.naturalHeight;
+            }
+
             // Get the 2D drawing context from the canvas
             const context = canvasElement.getContext("2d");
+            const nsfwContext = canvasNsfwElement.getContext("2d");
 
             if (context) {
-                // Draw the image onto the canvas
-                context.drawImage(refSheet, 0, 0);
+                const imageData = paintOverlay("ref-sheet-greyscale", context, refSheet, canvasElement);
+                let nsfwImageData: ImageData | undefined = undefined;
 
-                // Get the image data from the canvas
-                const imageData = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                // Do the same thing but for the NSFW sheet
+                if (nsfwContext && nsfwRefSheet) {
+                    nsfwImageData = paintOverlay("ref-sheet-greyscale-nsfw", nsfwContext, nsfwRefSheet, canvasNsfwElement);
+                }
 
-                drawOverlay(imageData, "#000", 0, false).then((imageData) => {
-                    context.putImageData(imageData, 0, 0);
-                    console.log("Image converted to greyscale");
+                const palette = document.getElementById("palette") as HTMLImageElement;
+                palette.addEventListener("mouseover", () => {
                     const overlaySheet = document.getElementById("ref-sheet-greyscale") as HTMLImageElement;
-                    overlaySheet.src = canvasElement.toDataURL()
+                    const overlayNsfwSheet = document.getElementById("ref-sheet-greyscale-nsfw") as HTMLImageElement;
+                    const slider = document.getElementById("nsfw-ref-slider") as HTMLElement;
 
-                    const palette = document.getElementById("palette") as HTMLImageElement;
+                    const sfwSelected = slider.style.transform === "translateX(100%)" ?? true;
+                    if (!sfwSelected) {
+                        overlaySheet.style.opacity = "100";
+                    } else {
+                        overlayNsfwSheet.style.opacity = "100";
+                    }
+                })
 
-                    palette.addEventListener("mouseover", () => {
-                        overlaySheet.style.opacity = "1";
-                    })
+                palette.addEventListener("mouseout", () => {
+                    const overlaySheet = document.getElementById("ref-sheet-greyscale") as HTMLImageElement;
+                    const overlayNsfwSheet = document.getElementById("ref-sheet-greyscale-nsfw") as HTMLImageElement;
+                    const slider = document.getElementById("nsfw-ref-slider") as HTMLElement;
 
-                    palette.addEventListener("mouseout", () => {
+                    const sfwSelected = slider.style.transform === "translateX(100%)" ?? true;
+                    if (!sfwSelected) {
                         overlaySheet.style.opacity = "0";
-                    })
-
-                });
+                    } else {
+                        overlayNsfwSheet.style.opacity = "0";
+                    }
+                })
 
                 // Loop over the children and attach an onmouseover event listener to each one
                 for (const color of colors) {
-
                     // Get the color of the current element
                     const colorValue = color.getAttribute("data-color") || "#000000";
 
@@ -114,9 +148,19 @@ function generatePalleteOverlays() {
                     // e.g. a tolerance of 20 means that colors within 20 units of the specified color will be left intact
                     const colorTolerance = color.getAttribute("data-tolerance") || "20";
 
+                    if (nsfwImageData) {
+                        drawOverlay(nsfwImageData, colorValue, parseInt(colorTolerance), true).then((imageData) => {
+                            if (nsfwContext) {
+                                nsfwContext.putImageData(imageData, 0, 0);
+
+                                const overlaySheet = document.getElementById("ref-sheet-".concat(colorValue).concat("-nsfw")) as HTMLImageElement;
+                                overlaySheet.src = canvasNsfwElement.toDataURL()
+                            }
+                        });
+                    }
+
                     drawOverlay(imageData, colorValue, parseInt(colorTolerance), true).then((imageData) => {
                         context.putImageData(imageData, 0, 0);
-                        console.log("Image converted to greyscale");
 
                         const overlaySheet = document.getElementById("ref-sheet-".concat(colorValue)) as HTMLImageElement;
                         overlaySheet.src = canvasElement.toDataURL()
@@ -124,14 +168,29 @@ function generatePalleteOverlays() {
                         color.addEventListener("mouseover", () => {
                             const colorValue = color.getAttribute("data-color") || "#000000";
                             const overlaySheet = document.getElementById("ref-sheet-".concat(colorValue)) as HTMLImageElement;
-                            overlaySheet.style.opacity = "1";
+                            const overlayNsfwSheet = document.getElementById("ref-sheet-".concat(colorValue).concat("-nsfw")) as HTMLImageElement;
+                            const slider = document.getElementById("nsfw-ref-slider") as HTMLElement;
+
+                            const sfwSelected = slider.style.transform === "translateX(100%)" ?? true;
+                            if (!sfwSelected) {
+                                overlaySheet.style.opacity = "100";
+                            } else {
+                                overlayNsfwSheet.style.opacity = "100";
+                            }
                         })
 
                         color.addEventListener("mouseout", () => {
                             const colorValue = color.getAttribute("data-color") || "#000000";
                             const overlaySheet = document.getElementById("ref-sheet-".concat(colorValue)) as HTMLImageElement;
-                            overlaySheet.style.opacity = "0";
+                            const overlayNsfwSheet = document.getElementById("ref-sheet-".concat(colorValue).concat("-nsfw")) as HTMLImageElement;
+                            const slider = document.getElementById("nsfw-ref-slider") as HTMLElement;
 
+                            const sfwSelected = slider.style.transform === "translateX(100%)" ?? true;
+                            if (!sfwSelected) {
+                                overlaySheet.style.opacity = "0";
+                            } else {
+                                overlayNsfwSheet.style.opacity = "0";
+                            }
                             const span = color.children[0] as HTMLSpanElement;
                             span.classList.add("group-hover:text-xl");
                             span.innerText = colorValue;
@@ -173,6 +232,9 @@ function unhideNSFW() {
         const nsfwDescription = document.getElementById("nsfw-description") as HTMLElement;
         nsfwDescription.classList.remove("hidden");
 
+        const refToggle = document.getElementById("nsfw-ref-control") as HTMLElement;
+        refToggle.classList.remove("hidden");
+
         const nsfwElements = Array.from(document.querySelectorAll<HTMLElement>(".nsfw, .nsfw-box"));
         for (const element of nsfwElements) {
             // We only want to load NSFW images if the user has explicitly checked the NSFW toggle
@@ -201,6 +263,21 @@ function attachNSFWToggle() {
                 } else {
                     element.style.display = "none";
                 }
+            }
+
+            if (!nsfwToggle.checked) {
+                const refSheet = document.getElementById("ref-sheet") as HTMLElement;
+                const nsfwRefSheet = document.getElementById("ref-sheet-nsfw") as HTMLElement;
+                const slider = document.getElementById("nsfw-ref-slider") as HTMLElement;
+                const control = document.getElementById("nsfw-ref-control") as HTMLElement;
+                slider.style.transform = "translateX(0px)";
+
+                refSheet.classList.remove("hidden");
+                nsfwRefSheet.classList.add("hidden");
+                control.classList.add("hidden");
+            } else {
+                const control = document.getElementById("nsfw-ref-control") as HTMLElement;
+                control.classList.remove("hidden");
             }
             const masonry = document.querySelector("masonry-layout");
             if (masonry) masonry.layout();
@@ -238,8 +315,39 @@ function attachRefToggleSwitch() {
     const refToggle = document.getElementById("nsfw-ref-control") as HTMLElement;
     if (refToggle) {
         refToggle.addEventListener("click", () => {
+            const refSheet = document.getElementById("ref-sheet") as HTMLElement;
+            const nsfwRefSheet = document.getElementById("ref-sheet-nsfw") as HTMLElement;
+
             const slider = document.getElementById("nsfw-ref-slider") as HTMLElement;
-            slider.style.transform = slider.style.transform === "translateX(0px)" ? "translateX(100%)" : "translateX(0px)";
+            const sfwSelected = slider.style.transform === "translateX(100%)" ?? true;
+            slider.style.transform = sfwSelected ? "translateX(0px)" : "translateX(100%)";
+
+            // get all ref-elements
+            const refElements = Array.from(document.querySelectorAll<HTMLElement>(".ref-element"));
+            const nsfwRefElements = Array.from(document.querySelectorAll<HTMLElement>(".nsfw-ref-element"));
+            if (sfwSelected) {
+                refSheet.classList.remove("hidden");
+                nsfwRefSheet.classList.add("hidden");
+
+                refElements.forEach((element) => {
+                    element.classList.remove("hidden");
+                });
+
+                nsfwRefElements.forEach((element) => {
+                    element.classList.add("hidden");
+                });
+            } else {
+                refSheet.classList.add("hidden");
+                nsfwRefSheet.classList.remove("hidden");
+
+                refElements.forEach((element) => {
+                    element.classList.add("hidden");
+                });
+
+                nsfwRefElements.forEach((element) => {
+                    element.classList.remove("hidden");
+                });
+            }
             console.log(slider.style.transform);
         });
     }
