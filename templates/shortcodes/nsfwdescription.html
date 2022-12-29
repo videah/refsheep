@@ -1,0 +1,9 @@
+{% set data = load_data(path=path) %}
+<div id="nsfw-description" class="card p-6 grid-item bg-purple-700 dark:bg-purple-900 border-purple-300 dark:border-purple-600 text-white {% if page.extra.require_nsfw_in_url %} hidden {% endif %}">
+    <p>This page contains some content that's not suitable for people under the age of 18.</p>
+    {% if data.nsfw.content_warnings %}
+        {% for warning in data.nsfw.content_warnings %}
+            {{ warning }}
+        {% endfor %}
+    {% endif %}
+</div>

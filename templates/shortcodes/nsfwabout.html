@@ -1,0 +1,5 @@
+{% set data = load_data(path=path) %}
+<fieldset class="nsfw hidden nsfw-box bg-black rounded-lg inline">
+    <legend class="uppercase bg-purple-700 rounded-lg font-mono px-2 text-center">NSFW</legend>
+    <p class="m-0 p-4 pt-0 whitespace-pre-line">{{ data.nsfw.about }}</p>
+</fieldset>

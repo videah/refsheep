@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% import "macros.html" as macros %}
+
+{% block content %}
+<div class="container mx-auto h-screen">
+    <div class="flex flex-col justify-center min-h-full">
+        <h1 class="mb-8 text-center dark:text-white text-6xl font-bold">Videah's References</h1>
+        <div class="flex-row flex gap-8 items-center justify-center animate-in fade-in duration-500">
+            {% for character in section.pages %}
+                {{ macros::character_tile(character=character) }}
+            {% endfor %}
+        </div>
+<!--        <div class="cursor-pointer dark:border-2 max-w-xl m-8 mx-auto dark:border-zinc-700 dark:bg-zinc-800 bg-white shadow-md rounded-lg overflow-auto">-->
+<!--            <div class="flex items-center px-6">-->
+<!--                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-24 h-24 stroke-zinc-500">-->
+<!--                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 13.5l3 3m0 0l3-3m-3 3v-6m1.06-4.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />-->
+<!--                </svg>-->
+
+<!--                <div class="pl-6 py-4">-->
+<!--                    <p class="text-gray-500 dark:text-zinc-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ac dui eu felis hendrerit fermentum.</p>-->
+<!--                    <p class="text-gray-500 dark:text-zinc-400 pt-2">Icon by @AxonTatsu</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+{% endblock content %}

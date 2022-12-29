@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% set og_image = resize_image(path=page.path ~ "refsheet.png", width=1080, op="fit_width") %}
+<meta property="og:title" content="{{ page.title }} - References"/>
+<meta property="og:description" content="{{ page.description }}" />
+<meta property="og:url" content="{{ current_url }}" />
+<meta property="og:image" content="{{ og_image.url }}"/>
+
+{% set twitter_image = resize_image(path=page.path ~ "refsheet.png", width=2048, height=1024, op="fit") %}
+<meta name="twitter:title" content="{{ page.title }} - References">
+<meta name="twitter:description" content="{{ page.description }}">
+<meta name="twitter:image" content="{{ twitter_image.url }}">
+<meta name="twitter:card" content="summary_large_image">
+{% endblock head %}
+
+{% block content %}
+<article class="animate-in fade-in duration-300">
+  <div class="container mx-auto h-screen max-w-5xl p-0 sm:p-4 dark:text-white">
+    <div class="flex items-center flex-col pt-4 justify-center">
+        <h1 class="font-bold text-4xl">{{ page.title }}</h1>
+        <p class="text-lg text-gray-500 dark:text-zinc-500 pt-0">{{ page.description }}</p>
+    </div>
+    <div class="children-div:my-4">
+      <div class="relative card">
+        {% set image = resize_image(path=page.path ~ "refsheet.png", height=2048, width=2048, op="fit") %}
+        {% if config.extra.blurhash %}
+          <blurhash-img
+                  class="absolute hidden animate-in fade-in duration-300"
+                  hash="L?H..]S5Rjaz?wR+f5fkIVV@t7fQ"
+                  style="width: {{ image.width }}px; height: {{ image.height }}"
+                  data-width="{{ image.width }}"
+                  data-height="{{ image.height }}"
+                  data-path="/videah/refsheet.png"
+          >
+          </blurhash-img>
+        {% endif %}
+        <img width="{{ image.width }}" height="{{ image.height }}" id="ref-sheet" src="{{ image.url }}" data-zoom-src="refsheet.png" data-zoomable/>
+        {% if page.extra.nsfw_refsheet %}
+          {% set image_nsfw = resize_image(path=page.path ~ "refsheet_nsfw.png", height=2048, width=2048, op="fit") %}
+          <img width="{{ image_nsfw.width }}" height="{{ image_nsfw.height }}" id="ref-sheet-nsfw" src="{{ image_nsfw.url }}" data-zoom-src="refsheet_nsfw.png" data-zoomable/>
+          <div id="nsfw-ref-control" class="absolute bottom-2 right-2 min-w-[150px] bg-purple-900 sm:rounded-lg text-white select-none" style="padding: 4px;">
+            <div class="relative flex items-center">
+              <div id="nsfw-ref-slider" class="absolute left-0 inset-y-0 w-1/2 flex bg-white dark:bg-purple-600 transition-all ease-in-out duration-200 transform rounded-md shadow translate-x-0"></div>
+              <div class="relative flex-1 flex text-sm font-semibold capitalize items-center justify-center cursor-pointer m-px p-px">SFW</div>
+              <div class="relative flex-1 flex text-sm font-semibold capitalize items-center justify-center cursor-pointer m-px p-px">NSFW</div>
+            </div>
+          </div>
+        {% endif %}
+        {% if page.extra.colors %}
+            <img id="ref-sheet-greyscale" class="absolute top-0 left-0 opacity-0 transition pointer-events-none"/>
+          {% for color in page.extra.colors %}
+            <img id="ref-sheet-{{ color }}" class="blinking absolute top-0 left-0 opacity-0 transition pointer-events-none"/>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="card !mb-4 rounded-lg mx-4 border-2 sm:mx-0">
+        {% if page.extra.colors %}
+        <div id="palette" class="grid grid-auto-fit-[8rem] sm:grid-auto-fit-sm">
+          {% for color in page.extra.colors %}
+          <div {% if page.extra.color_tolerances %} data-tolerance="{{ page.extra.color_tolerances | nth(n=loop.index - 1) }}" {% endif %}data-color="{{ color }}" class="select-none p-4 relative cursor-pointer transition border-black dark:border-white text-center align-middle flex flex-col justify-center items-center group" style="background-color: {{ color }};">
+            <span class="pointer-events-none absolute font-bold font-mono bg-inherit bg-clip-text text-transparent filter grayscale invert transition-all group-hover:text-xl overflow-hidden">{{ color }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <masonry-layout maxcolwidth="800" debounce="1" gap="16">
+        {{ page.content | safe }}
+      </masonry-layout>
+    </div>
+    </div>
+</article>
+{% endblock content %}

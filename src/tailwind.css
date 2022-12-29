@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .card {
+        @apply border-y-2 sm:border-x-2 dark:border-zinc-700 dark:bg-zinc-800 bg-white shadow-md sm:rounded-lg overflow-auto;
+    }
+    .nsfw, .nsfw-box {
+        @apply hidden transition animate-in fade-in duration-300;
+    }
+
+    .nsfw-box{
+        @apply border-2 border-purple-500 text-white font-sans;
+    }
+
+    .card > * > a {
+        @apply text-blue-400 no-underline hover:underline;
+    }
+}
+
+.blinking {
+    animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0% {
+        filter: brightness(100%);
+    }
+    50% {
+        filter: brightness(150%);
+    }
+    100% {
+        filter: brightness(100%);
+    }
+}

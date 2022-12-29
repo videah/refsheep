@@ -1,0 +1,14 @@
+{% macro character_tile(character) %}
+<a class="card-link" href="{{ character.permalink | safe }}">
+  <div class="hover:border-blue-500 cursor-pointer border-2 transition sm:hover:scale-105 dark:border-zinc-700 dark:bg-zinc-800 bg-white shadow-md rounded-lg sm:max-w-[350px] overflow-auto">
+    <div>
+      <img width="350px" height="350px" class="object-fill w-full dark:bg-zinc-700" src="{{ character.path ~ "icon.png" }}" alt="{{ character.title }}">
+    </div>
+    <div class="p-6">
+      <h3 class="text-3xl font-semibold text-gray-700 dark:text-white mb-2">{{ character.title }}</h3>
+      <p class="text-gray-500 dark:text-zinc-400">{{ character.description }}</p>
+      <p class="text-gray-500 dark:text-zinc-400 pt-2">Icon by @AxonTatsu</p>
+    </div>
+  </div>
+</a>
+{% endmacro character_tile %}
