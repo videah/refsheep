@@ -233,7 +233,8 @@ function unhideNSFW() {
         nsfwDescription.classList.remove("hidden");
 
         const refToggle = document.getElementById("nsfw-ref-control") as HTMLElement;
-        refToggle.classList.remove("hidden");
+        const nsfwRefSheet = document.getElementById("ref-sheet-nsfw") as HTMLImageElement;
+        if (nsfwRefSheet) refToggle.classList.remove("hidden");
 
         const nsfwElements = Array.from(document.querySelectorAll<HTMLElement>(".nsfw, .nsfw-box"));
         for (const element of nsfwElements) {
@@ -273,11 +274,12 @@ function attachNSFWToggle() {
                 slider.style.transform = "translateX(0px)";
 
                 refSheet.classList.remove("hidden");
-                nsfwRefSheet.classList.add("hidden");
+                if (nsfwRefSheet) nsfwRefSheet.classList.add("hidden");
                 control.classList.add("hidden");
             } else {
                 const control = document.getElementById("nsfw-ref-control") as HTMLElement;
-                control.classList.remove("hidden");
+                const nsfwRefSheet = document.getElementById("ref-sheet-nsfw") as HTMLElement;
+                if (nsfwRefSheet) control.classList.remove("hidden");
             }
             const masonry = document.querySelector("masonry-layout");
             if (masonry) masonry.layout();
@@ -327,7 +329,7 @@ function attachRefToggleSwitch() {
             const nsfwRefElements = Array.from(document.querySelectorAll<HTMLElement>(".nsfw-ref-element"));
             if (sfwSelected) {
                 refSheet.classList.remove("hidden");
-                nsfwRefSheet.classList.add("hidden");
+                if (nsfwRefSheet) nsfwRefSheet.classList.add("hidden");
 
                 refElements.forEach((element) => {
                     element.classList.remove("hidden");
@@ -338,7 +340,7 @@ function attachRefToggleSwitch() {
                 });
             } else {
                 refSheet.classList.add("hidden");
-                nsfwRefSheet.classList.remove("hidden");
+                if (nsfwRefSheet) nsfwRefSheet.classList.remove("hidden");
 
                 refElements.forEach((element) => {
                     element.classList.add("hidden");
