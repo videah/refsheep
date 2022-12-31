@@ -15,17 +15,26 @@ nsfw_refsheet = true
 
 {{ nsfwdescription(path="content/dad/nsfw.toml") }}
 
-{% card(title="About") %}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Integer ac dui eu felis hendrerit fermentum.
+{% card(title="🐺 About") %}
+James is a **Wolf** who goes by he/him pronouns.
 
- - Testing
+{{ nsfwabout(path="content/dad/nsfw.toml") }}
+
 {% end %}
 
 {% card(title="⚠️ Common Mistakes") %}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Integer ac dui eu felis hendrerit fermentum.
+
+### Missing Markings
+James has stripe markings on different parts of his body that many artists tend to overlook.
+
+{{ videah_ear() }}
+
+The most common one that artists miss are the **stripes on his ears**.
+Think of his ears as being little [VLC traffic cones.](https://en.wikipedia.org/wiki/VLC_media_player)
+
 {% end %}
+
+{{ dad_model() }}
 
 {{ gallery(path="content/dad/config.toml") }}
 
