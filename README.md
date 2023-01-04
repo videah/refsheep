@@ -38,7 +38,7 @@ Characters can be added by creating a directory in `content` named after your ch
 The name of the directory is what your character's URL will be (i.e example.com/character-name).
 
 The markdown file defines the character's page structure and content. This is done through a cursed combination of TOML, Markdown, and HTML.
-You can see an example of what this looks like in the includedcharacters `videah` and `dad`.
+You can see an example of what this looks like in the included characters `videah` and `dad`.
 
 The beginning of the file requires a TOML section in between +++'s that sets a few variables for the pages generation.
 
