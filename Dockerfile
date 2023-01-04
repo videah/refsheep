@@ -3,7 +3,7 @@ ARG CADDY_VERSION=2.6.2
 
 FROM node:lts-bullseye as constructer
 WORKDIR app
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 
 # Installs dependencies/plugins and compiles the blog's CSS
 RUN yarn install
@@ -34,13 +34,13 @@ WORKDIR /app
 COPY --from=compressor /app/minified minified
 
 # find all PNGs and optimize them
-# RUN find ./minified -type f -name "*.png" -exec oxipng --opt 3 --interlace 0 --strip safe {} \+
+RUN find ./minified -type f -name "*.png" -exec oxipng --opt 3 --interlace 0 --strip safe {} \+
 
 FROM caddy:${CADDY_VERSION}-builder AS embedder
 RUN git clone https://github.com/mholt/caddy-embed.git && cd caddy-embed && git checkout 6bbec9d
 WORKDIR caddy-embed
 
-# Do a dry run to cache go dependencies for building caddy
+# Do a dry run to ache go dependencies for building caddy
 ENV XCADDY_SKIP_BUILD=1
 RUN xcaddy build \
     --with github.com/mholt/caddy-embed=. \
