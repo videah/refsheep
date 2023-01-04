@@ -6,9 +6,13 @@
         <p>
             The topics being depicted on this page some people might find distressing for one reason or another. These include:
         </p>
+
+        <ul class="marker:text-white">
         {% for warning in data.nsfw.content_warnings %}
             <li class="font-bold font-mono text-lg">{{ warning }}</li>
         {% endfor %}
+        </ul>
+
         <p>If you feel these topics might make you uncomfortable you might want to disable NSFW content or leave the page.</p>
     {% endif %}
 </div>
