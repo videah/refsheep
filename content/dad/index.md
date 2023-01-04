@@ -16,9 +16,22 @@ nsfw_refsheet = true
 {{ nsfwdescription(path="content/dad/nsfw.toml") }}
 
 {% card(title="🐺 About") %}
+
 James is a **Wolf** who goes by he/him pronouns.
 
+He has a close relationship with his son [Videah](/videah/) who he likes to tease.
+
+James has a warm personality can hardly help himself when it comes to cracking jokes. He takes good care of his son who he loves very much and
+enjoys spending as much time as he can with.
+
+Regularly wears a red plaid shirt and jeans but is also the kind to walk around the house in his underwear like there's
+nobody else there. Even if there is in fact, somebody else there.
+
 {{ nsfwabout(path="content/dad/nsfw.toml") }}
+
+Very often has a sly smirk on his face.
+
+Owns a pair of reading glasses, only really wears them whilst working. He works at Xbox. He'll ban you.
 
 {% end %}
 
