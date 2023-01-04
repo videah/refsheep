@@ -5,7 +5,7 @@
 You can see it in action at [refs.videah.net/videah](https://refs.videah.net/videah/)
 
 It is built on top of [Zola](https://www.getzola.org), [Vite](https://vitejs.dev), and [Tailwind](https://tailwindcss.com).
-It is arguably overengineered. It is meant to serve my own purposes andif other people find use out of it that's just a nice bonus.
+It is arguably overengineered. It is meant to serve my own purposes and if other people find use out of it that's just a nice bonus.
 
 ### Features
 - Automatic color pallete indicator buttons that highlight parts of ref sheets
