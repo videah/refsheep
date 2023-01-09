@@ -6,6 +6,7 @@ WORKDIR app
 COPY package.json yarn.lock ./
 
 # Needed to package zips
+RUN apt-get update
 RUN apt-get install zip
 
 # Installs dependencies/plugins and compiles the blog's CSS
@@ -31,13 +32,6 @@ RUN find ./minified -type f -size +1400c \
     -regex ".*\.\(css\|html\|js\|json\|svg\|xml\)$" \
     -exec brotli --best {} \+ \
     -exec gzip --best -k {} \+
-
-FROM videah/oxipng AS optimizer
-WORKDIR /app
-COPY --from=compressor /app/minified minified
-
-# find all PNGs and optimize them
-RUN find ./minified -type f -name "*.png" -exec oxipng --opt 3 --interlace 0 --strip safe {} \+
 
 FROM caddy:${CADDY_VERSION}-builder AS embedder
 RUN git clone https://github.com/mholt/caddy-embed.git && cd caddy-embed && git checkout 6bbec9d

@@ -15,6 +15,9 @@ module.exports = {
             screens: {
                 'more-lg': '1048px',
             },
+            transitionProperty: {
+                'height': 'height'
+            }
         },
     },
     variants: {},
