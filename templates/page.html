@@ -74,6 +74,14 @@
         </div>
         {% endif %}
       </div>
+      {% if page.extra.zip_download %}
+      <a id="zip-button" href="/zips/{{ page.path | split(pat='/') | nth(n=1) }}.zip" class="mb-4 card w-full flex justify-center items-center text-center p-2 font-semibold bg-blue-900 border-blue-700 hover:bg-blue-700 hover:border-blue-500 transition opacity-90">
+        <div class="flex flex-col items-center">
+          <span class="px-2 text-xl">Download All References</span>
+          <span id="zip-text" class="opacity-60 text-sm">ZIP File</span>
+        </div>
+      </a>
+      {% endif %}
       <masonry-layout maxcolwidth="800" debounce="1" gap="16">
         {{ page.content | safe }}
       </masonry-layout>

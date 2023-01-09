@@ -8,6 +8,7 @@ emoji = "🐺"
 colors = ["#2d1413", "#5a292d", "#6c383c", "#f9d670", "#915856", "#b73341", "#6baac5", "#f6cfc9"]
 color_tolerances = [10, 10, 5, 30, 10, 20, 35, 20]
 require_nsfw_in_url = true
+zip_download = true
 +++
 
 {{ nsfwtoggle() }}

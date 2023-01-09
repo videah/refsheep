@@ -131,3 +131,4 @@ dist
 .pnp.*
 
 public/
+static/zips

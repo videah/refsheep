@@ -132,4 +132,5 @@ src/blurhash-map.json
 gallery_nsfw/
 refsheet_nsfw.png
 processed_images/
+zips/
 nsfw.toml

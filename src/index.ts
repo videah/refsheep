@@ -236,6 +236,11 @@ function unhideNSFW() {
         const nsfwRefSheet = document.getElementById("ref-sheet-nsfw") as HTMLImageElement;
         if (nsfwRefSheet) refToggle.classList.remove("hidden");
 
+        const zipButton = document.getElementById("zip-button") as HTMLLinkElement;
+        const zipText = document.getElementById("zip-text") as HTMLElement;
+        zipButton.href = zipButton.href.replace(".zip", "_nsfw.zip");
+        zipText.innerText += " (NSFW)";
+
         const nsfwElements = Array.from(document.querySelectorAll<HTMLElement>(".nsfw, .nsfw-box"));
         for (const element of nsfwElements) {
             // We only want to load NSFW images if the user has explicitly checked the NSFW toggle
