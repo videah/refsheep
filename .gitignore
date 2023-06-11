@@ -134,3 +134,5 @@ refsheet_nsfw.png
 processed_images/
 zips/
 nsfw.toml
+/wrangler.toml
+/.yarnrc.yml

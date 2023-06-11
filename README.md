@@ -28,7 +28,7 @@ yarn watch
 yarn build
 
 # Build a Caddy web server docker image with refsheep embeded inside
-# This is what powers refs.videah.net
+# This is what powers refs..videah.net
 docker build
 ```
 

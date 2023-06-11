@@ -1,5 +1,5 @@
 import './tailwind.css'
-import blurhashes from './blurhash-map.json';
+//import blurhashes from './blurhash-map.json';
 
 import 'vite/types/importMeta.d';
 
@@ -18,7 +18,7 @@ import "blurhash-img";
 import mediumZoom from 'medium-zoom'
 import greenlet from "greenlet";
 import copy from 'copy-to-clipboard';
-import camelcase from "camelcase";
+// import camelcase from "camelcase";
 
 mediumZoom('[data-zoomable]', {
     background: "#000"
@@ -305,16 +305,16 @@ function renderBlurhashes() {
 
         hash.style.setProperty("--aspect-ratio", aspect);
 
-        const path = hash.getAttribute("data-path") || "";
-        const strippedPath = path.replace(/\//g, '.');
-        const finalPath = camelcase(strippedPath);
+        // const path = hash.getAttribute("data-path") || "";
+        // const strippedPath = path.replace(/\//g, '.');
+        // const finalPath = camelcase(strippedPath);
 
-        const json = JSON.stringify(blurhashes);
-        const decoded = JSON.parse(json);
+        // const json = JSON.stringify(blurhashes);
+        // const decoded = JSON.parse(json);
 
-        const blurhash = decoded[finalPath].replace(/"/g, "");
-        hash.hash = blurhash;
-        hash.style.display = "block";
+        // const blurhash = decoded[finalPath].replace(/"/g, "");
+        // hash.hash = blurhash;
+        // hash.style.displaBlurhashy = "block";
     }
 }
 
