@@ -28,17 +28,6 @@
     <div class="children-div:my-4">
       <div id="ref-card" class="relative card transition-height">
         {% set image = resize_image(path=page.path ~ "refsheet.png", height=2048, width=2048, op="fit") %}
-        {% if config.extra.blurhash %}
-          <blurhash-img
-                  class="absolute hidden animate-in fade-in duration-300"
-                  hash="L?H..]S5Rjaz?wR+f5fkIVV@t7fQ"
-                  style="width: {{ image.width }}px; height: {{ image.height }}"
-                  data-width="{{ image.width }}"
-                  data-height="{{ image.height }}"
-                  data-path="/videah/refsheet.png"
-          >
-          </blurhash-img>
-        {% endif %}
         <img width="{{ image.width }}" height="{{ image.height }}" id="ref-sheet" src="{{ image.url }}" data-zoom-src="refsheet.png" data-zoomable/>
         {% if page.extra.nsfw_refsheet %}
           {% set image_nsfw = resize_image(path=page.path ~ "refsheet_nsfw.png", height=2048, width=2048, op="fit") %}

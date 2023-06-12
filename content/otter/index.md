@@ -6,6 +6,7 @@ description = "Very Gay otter"
 emoji = "🦦"
 colors = ["#a46b4e","#913a28", "#6e3d27", "#d5a984", "#f79084", "#B847B1"]
 require_nsfw_in_url = true
+nsfw_refsheet = true
 zip_download = true
 +++
 
