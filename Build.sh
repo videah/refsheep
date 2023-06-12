@@ -1,4 +1,5 @@
 python Build.py
+echo $CF_PAGES_URL
 if [[$CF_PAGES_BRANCH="master"]] || [[ -z "$CF_PAGES_URL" ]]
 then
   cat base_url>>cat base_url >> config.toml
