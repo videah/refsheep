@@ -130,7 +130,7 @@ function generatePalleteOverlays() {
                 }
 
                 const palette = document.getElementById("palette") as HTMLImageElement;
-                palette.addEventListener("mouseover", () => {
+                const greyout = () => {
                     const overlaySheet = document.getElementById("ref-sheet-greyscale") as HTMLImageElement;
                     const overlayNsfwSheet = document.getElementById("ref-sheet-greyscale-nsfw") as HTMLImageElement;
                     const overlayUnclothedSheet = document.getElementById("ref-sheet-greyscale-unclothed") as HTMLImageElement;
@@ -145,9 +145,9 @@ function generatePalleteOverlays() {
                     }else{
                         overlayUnclothedSheet.style.opacity = "100";
                     }
-                })
-
-                palette.addEventListener("mouseout", () => {
+                };
+                palette.addEventListener("mouseover", greyout);
+                const greyin = () => {
                     const overlaySheet = document.getElementById("ref-sheet-greyscale") as HTMLImageElement;
                     const overlayNsfwSheet = document.getElementById("ref-sheet-greyscale-nsfw") as HTMLImageElement;
                     const overlayUnclothedSheet = document.getElementById("ref-sheet-greyscale-unclothed") as HTMLImageElement;
@@ -162,7 +162,14 @@ function generatePalleteOverlays() {
                     } else{
                         overlayUnclothedSheet.style.opacity = "0";
                     }
-                })
+                };
+                palette.addEventListener("click",() =>
+                    {
+                        greyout();
+                        setTimeout(greyin, 2000);
+                    });
+
+                palette.addEventListener("mouseout", greyin);
 
                 // Loop over the children and attach an onmouseover event listener to each one
                 for (const color of colors) {
@@ -198,9 +205,8 @@ function generatePalleteOverlays() {
                         context.putImageData(imageData, 0, 0);
 
                         const overlaySheet = document.getElementById("ref-sheet-".concat(colorValue)) as HTMLImageElement;
-                        overlaySheet.src = canvasElement.toDataURL()
-
-                        color.addEventListener("mouseover", () => {
+                        overlaySheet.src = canvasElement.toDataURL();
+                        const colorIn = () => {
                             const colorValue = color.getAttribute("data-color") || "#000000";
                             const overlaySheet = document.getElementById("ref-sheet-".concat(colorValue)) as HTMLImageElement;
                             const overlayNsfwSheet = document.getElementById("ref-sheet-".concat(colorValue).concat("-nsfw")) as HTMLImageElement;
@@ -216,9 +222,9 @@ function generatePalleteOverlays() {
                             }else{
                                 overlayUnclothedSheet.style.opacity = "100";
                             }
-                        })
-
-                        color.addEventListener("mouseout", () => {
+                        }
+                        color.addEventListener("mouseover", colorIn)
+                        const colorOut = () => {
                             const colorValue = color.getAttribute("data-color") || "#000000";
                             const overlaySheet = document.getElementById("ref-sheet-".concat(colorValue)) as HTMLImageElement;
                             const overlayNsfwSheet = document.getElementById("ref-sheet-".concat(colorValue).concat("-nsfw")) as HTMLImageElement;
@@ -237,14 +243,22 @@ function generatePalleteOverlays() {
                             const span = color.children[0] as HTMLSpanElement;
                             span.classList.add("group-hover:text-xl");
                             span.innerText = colorValue;
+                        };
+
+                        color.addEventListener("mouseout", colorOut)
+                        color.addEventListener("click", () => {
+                            colorIn();
+                            setTimeout(colorOut, 2000);
                         })
                     });
 
                     color.addEventListener("click", () => {
+
                         const span = color.children[0] as HTMLSpanElement;
                         span.classList.remove("group-hover:text-xl");
                         copy(colorValue);
-                        span.innerText = "Copied!"
+                        span.innerText = "Copied!";
+
                     })
                 }
             }
