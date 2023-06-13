@@ -33,11 +33,15 @@
           {% set image_nsfw = resize_image(path=page.path ~ "refsheet_nsfw.png", height=2048, width=2048, op="fit") %}
           <img class="hidden" width="{{ image_nsfw.width }}" height="{{ image_nsfw.height }}" id="ref-sheet-nsfw" src="{{ image_nsfw.url }}" data-zoom-src="refsheet_nsfw.png" data-zoomable/>
         {% endif %}
-        <div id="nsfw-ref-control" class="cursor-pointer border-2 border-purple-500 hidden opacity-60 hover:opacity-100 transition-all absolute top-2 right-2 min-w-[150px] bg-purple-900 rounded-lg text-white select-none" style="padding: 4px;">
+        {% if page.extra.clothed_refsheet %}
+          {% set image_unclothed = resize_image(path=page.path ~ "refsheet_unclothed.png", height=2048, width=2048, op="fit") %}
+          <img class="hidden" width="{{ image_unclothed.width }}" height="{{ image_unclothed.height }}" id="ref-sheet-unclothed" src="{{ image_unclothed.url }}" data-zoom-src="refsheet_unclothed.png" data-zoomable/>
+        {% endif %}
+        <div id="ref-control" class="cursor-pointer border-2 border-purple-500 {% if page.extra.clothed_refsheet %}{% else %}hidden{% endif %} opacity-60 hover:opacity-100 transition-all absolute top-2 right-2 min-w-[150px] bg-purple-900 rounded-lg text-white select-none" style="padding: 4px;">
           <div class="relative flex items-center">
-            <div id="nsfw-ref-slider" class="absolute left-0 inset-y-0 w-1/2 flex bg-white dark:bg-purple-600 transition-all ease-in-out duration-200 transform rounded-md shadow translate-x-0"></div>
-            <div class="relative flex-1 flex text-sm font-semibold capitalize items-center justify-center m-px p-px">SFW</div>
-            <div class="relative flex-1 flex text-sm font-semibold capitalize items-center justify-center m-px p-px">NSFW</div>
+            <div id="clothed-ref-slider" class="absolute left-0 inset-y-0 w-1/2 flex bg-white dark:bg-purple-600 transition-all ease-in-out duration-200 transform rounded-md shadow translate-x-0"></div>
+            <div class="relative flex-1 flex text-sm font-semibold capitalize items-center justify-center m-px p-px">Clothed</div>
+            <div id="unclothed-nsfw" class="relative flex-1 flex text-sm font-semibold capitalize items-center justify-center m-px p-px">Unclothed</div>
           </div>
         </div>
         {% if page.extra.colors %}
@@ -50,8 +54,15 @@
           {% for color in page.extra.colors %}
             <img id="ref-sheet-{{ color }}-nsfw" class="nsfw-ref-element hidden blinking absolute top-0 left-0 opacity-0 transition pointer-events-none"/>
           {% endfor %}
+
+        <img id="ref-sheet-greyscale-unclothed" class="unclothed-ref-element hidden absolute top-0 left-0 opacity-0 transition pointer-events-none"/>
+          {% for color in page.extra.colors %}
+            <img id="ref-sheet-{{ color }}-unclothed" class="unclothed-ref-element hidden blinking absolute top-0 left-0 opacity-0 transition pointer-events-none"/>
+          {% endfor %}
+
         {% endif %}
       </div>
+
       <div class="card !mb-4 rounded-lg mx-4 border-2 sm:mx-0">
         {% if page.extra.colors %}
         <div id="palette" class="grid grid-auto-fit-[8rem] sm:grid-auto-fit-sm">
