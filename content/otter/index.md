@@ -1,10 +1,13 @@
 +++
 title = "Spencer"
 description = "Very Gay otter"
-
 [extra]
 emoji = "🦦"
-colors = ["#a46b4e","#913a28", "#6e3d27", "#d5a984", "#f79084", "#B847B1"]
+colors = ["#a46b4e","#913a28",
+    "#6e3d27", "#d5a984",
+    "#f79084", "#B847B1",
+    # eyes
+    "#87a8a3", "#9da897"]
 require_nsfw_in_url = true
 nsfw_refsheet = true
 clothed_refsheet = true
@@ -15,16 +18,24 @@ zip_download = true
 
 {{ nsfwdescription(path="content/otter/nsfw.toml") }}
 
-{% card(title="intro") %}
-Spencer is an otter!
-He is often found in no clothing at all as a disney nude but can wear any sort of clothing. 
-If he's in clothes, they're not likely to be anything above smart/business casual and
+{% card(title="Intro") %}
+
+Spencer is an otter! Spencer has been married to his Lovely Lizard husband Spiral (A.k.a TheSpiralAim) since 2019. 
+Since their marriage he's lived in the east Valley of the Sun. He works as a software Engineer primarily in software testing.
+He was born and raised in the PNW; he's worked as a lifeguard and was a non-competitive swimmer and took his time to get through higher education.
+{% end %}
+
+{% card(title="Clothes?") %}
+
+Spencer is often found in no clothing at all. 
+If he's wearing clothes, they're not likely to be anything above smart/business casual and
 is likely still going to include open toed sandals.
+The only type of swimwear he'd consider wearing is a pair of jammers
 {% end %}
 
 {% card(title="Eyes 👀") %}
-Otter has the most common form of heterocromia,
+
+Spencer has the most common form of heterocromia!
 but it's completely optional to include. His eyes are primarily gray and if desired, can include a green accent.
 If your going to include the accent, it should be as either an inner circle, or the top inner quadrant of each eye
-
 {% end %}
