@@ -27,10 +27,14 @@ He was born and raised in the PNW; he's worked as a lifeguard and was a non-comp
 
 {% card(title="Clothes?") %}
 
-Spencer is often found in no clothing at all. 
-If he's wearing clothes, they're not likely to be anything above smart/business casual and
-is likely still going to include open toed sandals.
-The only type of swimwear he'd consider wearing is a pair of jammers
+***Spencer is often found in no clothing at all.***
+
+If he is wearing clothes, he strongly prefers them to be brightly colored. Purple's, blue's, and teal's are favorites. 
+He's also more likely to wear shirts than pants. Clothing is not likely to be anything above smart/business casual.
+
+When possible and appropriate he'll wear open toed sandals over shoes.
+
+The only type of swimwear he considers wearing is a pair of jammers
 {% end %}
 
 {% card(title="Eyes 👀") %}
