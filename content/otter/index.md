@@ -43,3 +43,6 @@ Spencer has the most common form of heterocromia!
 but it's completely optional to include. His eyes are primarily gray and if desired, can include a green accent.
 If your going to include the accent, it should be as either an inner circle, or the top inner quadrant of each eye
 {% end %}
+
+{{ gallery(path="content/otter/config.toml") }}
+{{ nsfwgallery(path="content/otter/nsfw.toml") }}
