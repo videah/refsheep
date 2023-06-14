@@ -12,6 +12,7 @@ require_nsfw_in_url = true
 nsfw_refsheet = true
 clothed_refsheet = true
 zip_download = true
+config="content/otter/config.toml"
 +++
 
 {{ nsfwtoggle() }}

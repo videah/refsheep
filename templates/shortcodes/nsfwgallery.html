@@ -4,17 +4,6 @@
 {% set meta = get_image_metadata(path=asset) %}
 {% set image = resize_image(path=asset, height=1024, width=512, op="fit") %}
 <div class="card grid-item nsfw hidden relative">
-  {% if config.extra.blurhash %}
-  <blurhash-img
-          class="absolute hidden animate-in fade-in duration-300"
-          hash="L?H..]S5Rjaz?wR+f5fkIVV@t7fQ"
-          style="width: {{ image.width }}px; height: {{ meta.height }}"
-          data-width="{{ image.width }}"
-          data-height="{{ image.height }}"
-          data-path="{{ asset }}"
-  >
-  </blurhash-img>
-  {% endif %}
   <img width="{{ meta.width }}" height="{{ meta.height }}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ image.url }}" data-zoom-src="{{ get_url(path=asset) }}" data-zoomable/>
   {% if data %}
     {% if data.credit %}
