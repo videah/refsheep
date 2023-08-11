@@ -1,8 +1,3 @@
-{
-    order cache before rewrite
-    cache # Enables the cache for all requests for 2 minutes by default and stores in the badger provider
-}
-
 # This Caddyfile describes a server that's intended to be served behind a Caddy reverse proxy.
 # Thus there's no need to pull certificates so we simply serve on and respond to all requests on port 80.
 :80

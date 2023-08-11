@@ -24,15 +24,15 @@
     "typescript": "^4.9.4",
     "vite": "^4.0.0",
     "vite-plugin-blurhash": "^0.2.0",
-    "zola-bin": "^0.3.5"
+    "zola-bin": "^0.3.7"
   },
   "scripts": {
     "watch": "npm-run-all --parallel tailwind:serve vite:serve zola:serve",
     "build": "tsc && cross-env DEV=false npm-run-all zips:build zola:build vite:build",
-    "zola:serve": "zola-bin serve -i 0.0.0.0 -u localhost",
+    "zola:serve": "zola serve -i 0.0.0.0 -u localhost",
     "vite:serve": "vite",
     "tailwind:serve": "npx tailwindcss -i src/tailwind.css -o static/style.css --watch",
-    "zola:build": "zola-bin build",
+    "zola:build": "zola build",
     "vite:build": "vite build",
     "zips:build": "./generate_zips.sh"
   },

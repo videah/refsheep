@@ -1,29 +1,22 @@
 # Version of caddy to be used for hosting
 ARG CADDY_VERSION=2.6.2
 
-FROM node:lts-bullseye as constructer
-WORKDIR app
-COPY package.json yarn.lock ./
+FROM node:lts-alpine as constructer
 
 # Needed to package zips
-RUN apt-get update
-RUN apt-get install zip
+RUN apk add alpine-sdk zip zola python3
+
+WORKDIR app
+COPY package.json yarn.lock ./
 
 # Installs dependencies/plugins and compiles the blog's CSS
 RUN yarn install
 COPY . .
 RUN yarn build
 
-FROM tdewolff/minify:latest AS minifier
-WORKDIR app
-COPY --from=constructer /app/public public
-
-# Minify the sites content
-RUN minify -r -a -s -o minified public
-
 FROM alpine:3.16 AS compressor
 WORKDIR app
-COPY --from=minifier /app/minified minified
+COPY --from=constructer /app/public minified
 
 RUN apk add --no-cache brotli gzip
 
@@ -47,8 +40,7 @@ WORKDIR caddy-embed
 # Do a dry run to cache go dependencies for building caddy
 ENV XCADDY_SKIP_BUILD=1
 RUN xcaddy build \
-    --with github.com/mholt/caddy-embed=. \
-    --with github.com/caddyserver/cache-handler
+    --with github.com/mholt/caddy-embed=.
 
 COPY --from=optimizer /app/minified files
 
@@ -56,8 +48,7 @@ COPY --from=optimizer /app/minified files
 # This is so we can serve the site straight from memory.
 ENV XCADDY_SKIP_BUILD=0
 RUN xcaddy build \
-    --with github.com/mholt/caddy-embed=. \
-    --with github.com/caddyserver/cache-handler
+    --with github.com/mholt/caddy-embed=.
 
 FROM caddy:${CADDY_VERSION}-alpine AS runtime
 WORKDIR app
