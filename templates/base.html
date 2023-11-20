@@ -11,6 +11,10 @@
 
   <link href="/style.css" rel="stylesheet">
 
+  {% if config.extra.umami_domain %}
+  <script async src="https://{{ config.extra.umami_domain }}/script.js" data-domains="{{ config.extra.umami_track_domain }}" data-website-id="{{ config.extra.umami_id }}"></script>
+  {% endif %}
+
   {% block head %}
   {% endblock head %}
 
