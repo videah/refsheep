@@ -16,14 +16,12 @@
     "greenlet": "^1.1.0",
     "medium-zoom": "^1.0.8",
     "npm-run-all": "^4.1.5",
-    "parcel-bundler": "^1.12.5",
+    "parcel": "^2.0.0",
     "postcss": "^8.4.20",
-    "tailwind-children": "^0.5.0",
     "tailwindcss": "^3.1.8",
     "tailwindcss-animate": "^1.0.5",
     "typescript": "^4.9.4",
     "vite": "^4.0.0",
-    "vite-plugin-blurhash": "^0.2.0",
     "zola-bin": "^0.3.7"
   },
   "scripts": {
