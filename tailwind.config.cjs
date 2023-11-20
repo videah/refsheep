@@ -23,7 +23,6 @@ module.exports = {
     variants: {},
     plugins: [
         require('@tailwindcss/typography'),
-        require('tailwind-children'),
         require('tailwindcss-animate'),
         require('@shrutibalasa/tailwind-grid-auto-fit'),
     ],
